@@ -2,11 +2,23 @@
 #define WIN32_LEAN_AND_MEAN
 #include <Windows.h>
 
+#include "SfmlFilm.h"
+
 int __stdcall WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 {
-	sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
-	sf::CircleShape shape(100.f);
-	shape.setFillColor(sf::Color::Green);
+	const unsigned width = 800;
+	const unsigned height = 600;
+	sf::RenderWindow window(sf::VideoMode(width, height), "Tracer");
+
+	SfmlFilm film(width, height);
+	for (unsigned y = 0; y < height; y++)
+	{
+		for (unsigned x = 0; x < width; x++)
+		{
+			RgbaColor color(x % 255, y % 255, (x + y) % 255, 255);
+			film.AddSample(x, y, color, 1.f);
+		}
+	}
 
 	while (window.isOpen())
 	{
@@ -18,7 +30,7 @@ int __stdcall WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 		}
 
 		window.clear();
-		window.draw(shape);
+		window.draw(film.GetSprite());
 		window.display();
 	}
 
