@@ -8,9 +8,12 @@ class Film
 public:
 	Film(unsigned width, unsigned height);
 
+	unsigned GetWidth() const;
+	unsigned GetHeight() const;
+
 	void Clear();
 	void AddSample(unsigned x, unsigned y, RgbaColor sample, float weight);
-	unsigned char* GetRgba();
+	const unsigned char* GetRgba() const;
 
 private:
 	unsigned width;

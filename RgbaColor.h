@@ -14,12 +14,12 @@ struct RgbaColor
 			static_cast<unsigned char>(a*c));
 	}
 
-	RgbaColor& operator+=(const RgbaColor& rhs)
+	RgbaColor& operator+=(const RgbaColor& other)
 	{
-		r += rhs.r;
-		g += rhs.g;
-		b += rhs.b;
-		a += rhs.a;
+		r += other.r;
+		g += other.g;
+		b += other.b;
+		a += other.a;
 		return *this;
 	}
 

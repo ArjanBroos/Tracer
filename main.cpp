@@ -4,12 +4,8 @@
 
 #include "SfmlFilm.h"
 
-int __stdcall WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
+SfmlFilm CreateTestFilm(unsigned width, unsigned height)
 {
-	const unsigned width = 800;
-	const unsigned height = 600;
-	sf::RenderWindow window(sf::VideoMode(width, height), "Tracer");
-
 	SfmlFilm film(width, height);
 	for (unsigned y = 0; y < height; y++)
 	{
@@ -19,6 +15,16 @@ int __stdcall WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			film.AddSample(x, y, color, 1.f);
 		}
 	}
+	return film;
+}
+
+int __stdcall WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
+{
+	const unsigned width = 800;
+	const unsigned height = 600;
+	sf::RenderWindow window(sf::VideoMode(width, height), "Tracer");
+
+	SfmlFilm film = CreateTestFilm(width, height);
 
 	while (window.isOpen())
 	{
