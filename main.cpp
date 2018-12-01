@@ -11,8 +11,11 @@ SfmlFilm CreateTestFilm(unsigned width, unsigned height)
 	{
 		for (unsigned x = 0; x < width; x++)
 		{
-			RgbaColor color(x % 255, y % 255, (x + y) % 255, 255);
-			film.AddSample(x, y, color, 1.f);
+			Spectrum spectrum(
+				static_cast<float>(x) / width,
+				static_cast<float>(y) / height,
+				static_cast<float>(x + y) / (width + height));
+			film.AddSample(x, y, spectrum, 1.f);
 		}
 	}
 	return film;

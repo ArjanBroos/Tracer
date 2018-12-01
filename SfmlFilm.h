@@ -16,10 +16,12 @@ public:
 	unsigned GetHeight() const;
 
 	void Clear();
-	void AddSample(unsigned x, unsigned y, RgbaColor sample, float weight);
+	void AddSample(unsigned x, unsigned y, Spectrum sample, float weight);
 	const sf::Sprite& GetSprite();
 
 private:
+	std::vector<sf::Uint8> ToRgba(const std::vector<Spectrum>& image);
+
 	Film film;
 	sf::Texture texture;
 	sf::Sprite sprite;

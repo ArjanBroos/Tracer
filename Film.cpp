@@ -4,7 +4,7 @@ Film::Film(unsigned width, unsigned height) :
 	width(width),
 	height(height)
 {
-	rgba.resize(width*height);
+	image.resize(width*height);
 }
 
 unsigned Film::GetWidth() const
@@ -19,15 +19,15 @@ unsigned Film::GetHeight() const
 
 void Film::Clear()
 {
-	std::fill(rgba.begin(), rgba.end(), RgbaColor());
+	std::fill(image.begin(), image.end(), Spectrum());
 }
 
-void Film::AddSample(unsigned x, unsigned y, RgbaColor radiance, float weight)
+void Film::AddSample(unsigned x, unsigned y, Spectrum radiance, float weight)
 {
-	rgba[y*width + x] += radiance * weight;
+	image[y * width + x] += radiance * weight;
 }
 
-const unsigned char* Film::GetRgba() const
+const std::vector<Spectrum>& Film::GetImage() const
 {
-	return reinterpret_cast<const unsigned char*>(rgba.data());
+	return image;
 }

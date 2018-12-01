@@ -1,7 +1,7 @@
 #pragma once
 
 #include <vector>
-#include "RgbaColor.h"
+#include "Spectrum.h"
 
 class Film
 {
@@ -12,11 +12,11 @@ public:
 	unsigned GetHeight() const;
 
 	void Clear();
-	void AddSample(unsigned x, unsigned y, RgbaColor sample, float weight);
-	const unsigned char* GetRgba() const;
+	void AddSample(unsigned x, unsigned y, Spectrum sample, float weight);
+	const std::vector<Spectrum>& GetImage() const;
 
 private:
 	unsigned width;
 	unsigned height;
-	std::vector<RgbaColor> rgba;
+	std::vector<Spectrum> image;
 };
