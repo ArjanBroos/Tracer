@@ -1,7 +1,9 @@
 #include <SFML/Graphics.hpp>
 #define WIN32_LEAN_AND_MEAN
 #include <Windows.h>
+#include <sstream>
 
+#include "FpsCounter.h"
 #include "SfmlFilm.h"
 
 SfmlFilm CreateTestFilm(unsigned width, unsigned height)
@@ -21,6 +23,13 @@ SfmlFilm CreateTestFilm(unsigned width, unsigned height)
 	return film;
 }
 
+void AddFpsToWindowTitle(unsigned fps, sf::RenderWindow& window)
+{
+	std::stringstream ss;
+	ss << "Tracer - FPS: " << fps;
+	window.setTitle(ss.str());
+}
+
 int __stdcall WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 {
 	const unsigned width = 800;
@@ -28,6 +37,7 @@ int __stdcall WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	sf::RenderWindow window(sf::VideoMode(width, height), "Tracer");
 
 	SfmlFilm film = CreateTestFilm(width, height);
+	FpsCounter fpsCounter;
 
 	while (window.isOpen())
 	{
@@ -41,6 +51,9 @@ int __stdcall WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 		window.clear();
 		window.draw(film.GetSprite());
 		window.display();
+
+		fpsCounter.Count();
+		AddFpsToWindowTitle(fpsCounter.GetFramesPerSecond(), window);
 	}
 
 	return 0;

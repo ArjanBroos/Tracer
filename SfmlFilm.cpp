@@ -72,7 +72,7 @@ std::vector<sf::Uint8> SfmlFilm::ToRgba(const std::vector<Spectrum>& image)
 {
 	std::vector<sf::Uint8> rgba;
 	rgba.reserve(GetWidth() * GetHeight() * 4);
-	for (auto spectrum : image)
+	for (const auto& spectrum : image)
 	{
 		const auto max = 255;
 		rgba.push_back(static_cast<sf::Uint8>(spectrum.r * max));
