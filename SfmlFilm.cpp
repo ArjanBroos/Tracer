@@ -70,15 +70,17 @@ const sf::Sprite& SfmlFilm::GetSprite()
 
 std::vector<sf::Uint8> SfmlFilm::ToRgba(const std::vector<Spectrum>& image)
 {
-	std::vector<sf::Uint8> rgba;
-	rgba.reserve(GetWidth() * GetHeight() * 4);
+	std::vector<sf::Uint8> rgba(GetWidth() * GetHeight() * 4);
+
+	auto data = &rgba[0];
+
 	for (const auto& spectrum : image)
 	{
-		const auto max = 255;
-		rgba.push_back(static_cast<sf::Uint8>(spectrum.r * max));
-		rgba.push_back(static_cast<sf::Uint8>(spectrum.g * max));
-		rgba.push_back(static_cast<sf::Uint8>(spectrum.b * max));
-		rgba.push_back(max);
+		const auto max = 255.f;
+		*data++ = static_cast<sf::Uint8>(spectrum.r * max);
+		*data++ = static_cast<sf::Uint8>(spectrum.g * max);
+		*data++ = static_cast<sf::Uint8>(spectrum.b * max);
+		*data++ = static_cast<sf::Uint8>(max);
 	}
 	return rgba;
 }
